@@ -7,7 +7,7 @@
   <title>千问 Go · 灵动提醒</title>
   <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:#222;background:#f6f6f8;--ease-out:cubic-bezier(.23,1,.32,1);--ease-morph:cubic-bezier(.32,.72,0,1);font-synthesis:none}
-.island .island-shadow{background:#fff;box-shadow:0 6px 16px #0000001f,0 2px 5px #0000000a;opacity:0;filter:none;transform-origin:50% 0}
+.island .island-shadow{background:#fff;box-shadow:0 6px 16px rgba(0,0,0,.08);opacity:0;filter:none;transform-origin:50% 0}
 .island .white-surface{background:transparent;z-index:1;pointer-events:none}
 .surface::before{content:"";position:absolute;inset:-12px;background:inherit}
 .notice-content{position:absolute;inset:0;padding:inherit;transform-origin:50% 0px}
@@ -81,7 +81,7 @@
       <p class="description">从顶部 tab 自然撑开提醒。<br>停留片刻，再回到待处理状态。</p>
       <div class="steps" aria-label="查看动画状态">
         <button class="step active" data-seek="2800"><span class="number">01</span><span>浮层提醒<small>完整停留 3 秒</small></span><i></i></button>
-        <button class="step" data-seek="5920"><span class="number">02</span><span>待处理<small>收回顶部 tab</small></span><i></i></button>
+        <button class="step" data-seek="5950"><span class="number">02</span><span>待处理<small>收回顶部 tab</small></span><i></i></button>
         <button class="step" id="goDemo"><span class="number">03</span><span>切换千问 Go<small>澄清卡上移淡入</small></span><i></i></button>
       </div>
       <div class="controls">
@@ -89,9 +89,9 @@
         <button class="secondary" id="pause">暂停</button>
         <label class="speed">速度<select id="speed" aria-label="播放速度"><option value="1">1×</option><option value="0.5">0.5×</option><option value="0.25">0.25×</option></select></label>
       </div>
-      <div class="scrub"><input id="scrubber" type="range" min="0" max="5920" step="1" value="0" aria-label="动画进度"><div><span id="phase" role="status">静止停留</span><span id="time">0.00 / 5.92 s</span></div></div>
+      <div class="scrub"><input id="scrubber" type="range" min="0" max="5950" step="1" value="0" aria-label="动画进度"><div><span id="phase" role="status">静止停留</span><span id="time">0.00 / 5.95 s</span></div></div>
       <p class="hint">点击状态查看 · 点击千问 Go 或查看详情进入澄清</p>
-<p class="hint"><a href="recording.html?v=10">观看完整录屏</a> · <a href="qwen-go-demo.mp4?v=10" download>下载 MP4</a></p>
+<p class="hint"><a href="recording.html?v=11">观看完整录屏</a> · <a href="qwen-go-demo.mp4?v=11" download>下载 MP4</a></p>
       <a class="design-link" href="https://www.figma.com/design/0UcbSziSoNivUpRw6dhbvC/?node-id=13071-150867" target="_blank" rel="noreferrer">查看 Figma 设计稿 <span aria-hidden="true">↗</span></a>
     </section>
     <section class="preview" aria-label="375 × 812 设计稿动画预览">
@@ -181,7 +181,8 @@ window.islandSpringData={"close":{"bounce":0,"damping":22.84794657156213,"durati
   <script>
 /* Entry follows the visible expansion in the supplied recording, adapted to
    this design's geometry. Exit retains the public Apple Spring sample. */
-const TAB_JOIN_LEAD = 40;
+const TAB_JOIN_LEAD = 70;
+const MATERIAL_DURATION = 120;
 const OPEN_DURATION = TAB_JOIN_LEAD + 400;
 const CLOSE_DURATION = 480;
 const EXPAND_START = 2000;
@@ -288,8 +289,8 @@ function springFrames(start,expanding) {
   if(expanding){
     // Lift and whiten the actual tab first. Growth starts while that change
     // is still in progress, preserving one continuous surface without a hold.
-    const times=[...new Set([...Array.from({length:133},(_,i)=>i/132*OPEN_DURATION),TAB_JOIN_LEAD,70])].sort((a,b)=>a-b);
-    return times.map(time=>[start+time,islandVisuals(recordedExpansion(clamp01((time-TAB_JOIN_LEAD)/400)),null,smoothstep(0,70,time))]);
+    const times=[...new Set([...Array.from({length:133},(_,i)=>i/132*OPEN_DURATION),TAB_JOIN_LEAD,MATERIAL_DURATION])].sort((a,b)=>a-b);
+    return times.map(time=>[start+time,islandVisuals(recordedExpansion(clamp01((time-TAB_JOIN_LEAD)/400)),null,smoothstep(0,MATERIAL_DURATION,time))]);
   }
   const model=window.islandSpringData[expanding?'open':'close'];
   const duration=expanding?OPEN_DURATION:CLOSE_DURATION;
@@ -646,6 +647,7 @@ document.addEventListener('visibilitychange', () => {
 
 Promise.all(Array.from(document.images, image => image.decode().catch(() => {}))).then(() => {
   createTimeline();
+  setBounds();
   update(0);
   syncControls();
   play();
