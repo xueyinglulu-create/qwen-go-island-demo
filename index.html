@@ -23,6 +23,7 @@
 /* Updated Figma state 13071:162248. Home tab geometry stays unchanged. */
 .compact button{border:0;padding:0;font:inherit}
 .compact .go-logo{background:transparent}
+.screen[data-tab-status="initial"] #goTab .state-icon{display:none}
 .go-navigation[hidden],.go-page[hidden],.go-feedback[hidden],.clarification-options img[hidden]{display:none}
 .go-navigation{position:absolute;z-index:7;left:0;top:44px;width:375px;height:50px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:#fff;opacity:0}
 .go-selected-tabs{position:absolute;left:calc(50% + .22px);top:7px;transform:translateX(-50%);display:flex;padding:2px;width:148px;height:36px;border-radius:99px;background:#2222220f}
@@ -88,11 +89,11 @@
       </div>
       <div class="scrub"><input id="scrubber" type="range" min="0" max="5920" step="1" value="0" aria-label="动画进度"><div><span id="phase" role="status">静止停留</span><span id="time">0.00 / 5.92 s</span></div></div>
       <p class="hint">点击状态查看 · 点击千问 Go 或查看详情进入澄清</p>
-      <p class="hint"><a href="recording.html?v=6">观看完整录屏</a> · <a href="qwen-go-demo.mp4?v=6" download>下载 MP4</a></p>
+      <p class="hint"><a href="recording.html?v=7">观看完整录屏</a> · <a href="qwen-go-demo.mp4?v=7" download>下载 MP4</a></p>
       <a class="design-link" href="https://www.figma.com/design/0UcbSziSoNivUpRw6dhbvC/?node-id=13071-150867" target="_blank" rel="noreferrer">查看 Figma 设计稿 <span aria-hidden="true">↗</span></a>
     </section>
     <section class="preview" aria-label="375 × 812 设计稿动画预览">
-      <div class="device-holder"><div class="device"><div class="screen" id="screen" data-state="idle">
+      <div class="device-holder"><div class="device"><div class="screen" id="screen" data-state="idle" data-tab-status="initial">
         <div class="status-bar"><span>11:30</span><img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjY3LjI3MjUiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA2Ny4yNzI1IDEyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iJiMyMjk7JiMxNDM7JiMxNzk7JiMyMjg7JiMxOTA7JiMxNjc7Ij4KPHBhdGggaWQ9IkNlbGx1bGFyIENvbm5lY3Rpb24iIGQ9Ik0yIDcuMzMzNThDMi41NTIyOCA3LjMzMzU4IDMgNy43ODEyOSAzIDguMzMzNThWMTAuMzMzNkMzIDEwLjg4NTkgMi41NTIyOCAxMS4zMzM2IDIgMTEuMzMzNkgxQzAuNDQ3NzE1IDExLjMzMzYgMCAxMC44ODU5IDAgMTAuMzMzNlY4LjMzMzU4QzAgNy43ODEyOSAwLjQ0NzcxNSA3LjMzMzU4IDEgNy4zMzM1OEgyWk02LjY2Njk5IDUuMzMzNThDNy4yMTkwNSA1LjMzMzg0IDcuNjY2OTkgNS43ODE0NiA3LjY2Njk5IDYuMzMzNThWMTAuMzMzNkM3LjY2Njk5IDEwLjg4NTcgNy4yMTkwNSAxMS4zMzMzIDYuNjY2OTkgMTEuMzMzNkg1LjY2Njk5QzUuMTE0NzEgMTEuMzMzNiA0LjY2Njk5IDEwLjg4NTkgNC42NjY5OSAxMC4zMzM2VjYuMzMzNThDNC42NjY5OSA1Ljc4MTI5IDUuMTE0NzEgNS4zMzM1OCA1LjY2Njk5IDUuMzMzNThINi42NjY5OVpNMTYgMC42NjY1ODVDMTYuNTUyMyAwLjY2NjU4NSAxNyAxLjExNDMgMTcgMS42NjY1OVYxMC4zMzM2QzE2Ljk5OTggMTAuODg1NyAxNi41NTIyIDExLjMzMzYgMTYgMTEuMzMzNkgxNUMxNC40NDc4IDExLjMzMzYgMTQuMDAwMiAxMC44ODU3IDE0IDEwLjMzMzZWMS42NjY1OUMxNCAxLjExNDMgMTQuNDQ3NyAwLjY2NjU4NSAxNSAwLjY2NjU4NUgxNlpNMTEuMzM0IDIuOTk5NTlDMTEuODg2IDIuOTk5ODYgMTIuMzM0IDMuNDQ3NDcgMTIuMzM0IDMuOTk5NTlWMTAuMzMyNkMxMi4zMzQgMTAuODg0NyAxMS44ODYgMTEuMzMyMyAxMS4zMzQgMTEuMzMyNkgxMC4zMzRDOS43ODE3IDExLjMzMjYgOS4zMzM5OCAxMC44ODQ5IDkuMzMzOTggMTAuMzMyNlYzLjk5OTU5QzkuMzMzOTggMy40NDczMSA5Ljc4MTcgMi45OTk1OSAxMC4zMzQgMi45OTk1OUgxMS4zMzRaIiBmaWxsPSIjMjIyMjIyIi8+CjxwYXRoIGlkPSJXaWZpIiBkPSJNMjcuNDI2OCA4LjkxNzg4QzI4LjcwMjMgNy44MzkwMSAzMC41NzAxIDcuODM5MDQgMzEuODQ1NyA4LjkxNzg4QzMxLjkwOTkgOC45NzU5MiAzMS45NDc1IDkuMDU3OTQgMzEuOTQ5MiA5LjE0NDQ0QzMxLjk1MDkgOS4yMzA3OCAzMS45MTcxIDkuMzE0NDIgMzEuODU1NSA5LjM3NDkxTDI5Ljg1ODQgMTEuMzkwNUMyOS43OTk5IDExLjQ0OTcgMjkuNzE5OSAxMS40ODIzIDI5LjYzNjcgMTEuNDgyM0MyOS41NTM2IDExLjQ4MjMgMjkuNDczNiAxMS40NDk2IDI5LjQxNSAxMS4zOTA1TDI3LjQxNyA5LjM3NDkxQzI3LjM1NTMgOS4zMTQyNiAyNy4zMjE0IDkuMjI5OTggMjcuMzIzMiA5LjE0MzQ3QzI3LjMyNTIgOS4wNTcyMiAyNy4zNjI4IDguOTc1NzYgMjcuNDI2OCA4LjkxNzg4Wk0yNC43NjE3IDYuMjI4NDNDMjcuNTA5OCAzLjY3MjQ3IDMxLjc2NTYgMy42NzIzOSAzNC41MTM3IDYuMjI4NDNDMzQuNTc1NiA2LjI4ODI4IDM0LjYxMTMgNi4zNzA4MyAzNC42MTIzIDYuNDU2OTRDMzQuNjEzMiA2LjU0MzA3IDM0LjU3OTIgNi42MjYyNSAzNC41MTg2IDYuNjg3NDFMMzMuMzYzMyA3Ljg1NDRDMzMuMjQ0MyA3Ljk3MzMgMzMuMDUyNyA3Ljk3NjAyIDMyLjkzMDcgNy44NjAyNkMzMi4wMjgzIDcuMDQzMTIgMzAuODU0MSA2LjU5MDczIDI5LjYzNjcgNi41OTA3M0MyOC40MiA2LjU5MTI0IDI3LjI0NjYgNy4wNDM2IDI2LjM0NDcgNy44NjAyNkMyNi4yMjI3IDcuOTc2MTkgMjYuMDMwMSA3Ljk3MzUyIDI1LjkxMTEgNy44NTQ0TDI0Ljc1NjggNi42ODc0MUMyNC42OTYyIDYuNjI2NDUgMjQuNjYyNCA2LjU0Mzg4IDI0LjY2MzEgNi40NTc5MkMyNC42NjM5IDYuMzcxNjMgMjQuNjk5NiA2LjI4ODM3IDI0Ljc2MTcgNi4yMjg0M1pNMjIuMDk2NyAzLjU0Njc5QzI2LjMxMTggLTAuNDkyMzgyIDMyLjk2MTggLTAuNDkyNjM0IDM3LjE3NjggMy41NDY3OUMzNy4yMzc3IDMuNjA2NzMgMzcuMjcxOSAzLjY4ODg3IDM3LjI3MjUgMy43NzQzM0MzNy4yNzMgMy44NTk4OSAzNy4yMzkgMy45NDIxMiAzNy4xNzg3IDQuMDAyODRMMzYuMDIyNSA1LjE2OTgzQzM1LjkwMzMgNS4yODkzMSAzNS43MTA3IDUuMjkwNTYgMzUuNTg5OCA1LjE3Mjc2QzMzLjk4MzkgMy42NDYwMyAzMS44NTI1IDIuNzk0OTYgMjkuNjM2NyAyLjc5NDgzQzI3LjQyMDYgMi43OTQ4MyAyNS4yODg4IDMuNjQ1ODggMjMuNjgyNiA1LjE3Mjc2QzIzLjU2MTggNS4yOTA3NSAyMy4zNjkgNS4yODk1MyAyMy4yNSA1LjE2OTgzTDIyLjA5MzggNC4wMDI4NEMyMi4wMzM1IDMuOTQyMDggMjEuOTk5NCAzLjg1OTkxIDIyIDMuNzc0MzNDMjIuMDAwNiAzLjY4ODgyIDIyLjAzNTcgMy42MDY3MSAyMi4wOTY3IDMuNTQ2NzlaIiBmaWxsPSIjMjIyMjIyIi8+CjxnIGlkPSJCYXR0ZXJ5IiBjbGlwLXBhdGg9InVybCgjY2xpcDBfMF8yOTA4KSI+CjxnIGlkPSJCYXR0ZXJ5XzIiPgo8L2c+CjxyZWN0IGlkPSJCb3JkZXIiIG9wYWNpdHk9IjAuMzUiIHg9IjQyLjc3MjUiIHk9IjAuODMzMDA4IiB3aWR0aD0iMjEiIGhlaWdodD0iMTAuMzMzMyIgcng9IjIuMTY2NjciIHN0cm9rZT0iIzIyMjIyMiIvPgo8cGF0aCBpZD0iQ2FwIiBvcGFjaXR5PSIwLjQiIGQ9Ik02NS4yNzI1IDRWOEM2Ni4wNzcyIDcuNjYxMjIgNjYuNjAwNSA2Ljg3MzEzIDY2LjYwMDUgNkM2Ni42MDA1IDUuMTI2ODcgNjYuMDc3MiA0LjMzODc4IDY1LjI3MjUgNFY0WiIgZmlsbD0iIzIyMjIyMiIvPgo8cmVjdCBpZD0iQ2FwYWNpdHkiIHg9IjQ0LjI3MjUiIHk9IjIuMzMzMDEiIHdpZHRoPSIxOCIgaGVpZ2h0PSI3LjMzMzMzIiByeD0iMS4zMzMzMyIgZmlsbD0iIzIyMjIyMiIvPgo8L2c+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfMF8yOTA4Ij4KPHJlY3Qgd2lkdGg9IjI1IiBoZWlnaHQ9IjEyIiBmaWxsPSJ3aGl0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDIuMjcyNSkiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="信号、电量状态"></div>
         <nav class="navigation" id="homeNavigation" aria-label="快述导航">
           <div class="nav-side"><span class="icon"><img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE5IiBoZWlnaHQ9IjEwIiB2aWV3Qm94PSIwIDAgMTkgMTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGlkPSImIzIyOTsmIzE4OTsmIzE2MjsmIzIzMTsmIzEzODsmIzE4MjsmIzIzMTsmIzE4NzsmIzE0NzsmIzIyOTsmIzE0NDsmIzEzNjsmIzIzOTsmIzE4ODsmIzEzNjsmIzIzMjsmIzE5MDsmIzE4NTsmIzIzMDsmIzE2MTsmIzEzNDsmIzIzOTsmIzE4ODsmIzEzNzsiIGQ9Ik0xMiAxMEgwVjhIMTJWMTBaTTE5IDJIMFYwSDE5VjJaIiBmaWxsPSIjMjIyMjIyIi8+Cjwvc3ZnPgo=" alt="菜单"></span><img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJpY29uL25ld0RpYWxvZ3VlIj4KPHBhdGggaWQ9IiYjMjMyOyYjMTgzOyYjMTc1OyYjMjI5OyYjMTkwOyYjMTMyOyA0NDYmIzIzOTsmIzE4ODsmIzEzNjsmIzIzMjsmIzE5MDsmIzE4NTsmIzIzMDsmIzE2MTsmIzEzNDsmIzIzOTsmIzE4ODsmIzEzNzsiIGQ9Ik0xNCA1SDZDNS4zMzMzMyA1IDUgNS4zMzMzMyA1IDZWMTkuNDE4OUw4LjIzODI4IDE2LjgyOTFDOC41MTIxOSAxNi42MSA4LjgyNDk5IDE2LjUgOS4xNzU3OCAxNi41SDE4QzE4LjY2NjcgMTYuNSAxOSAxNi4xNjY3IDE5IDE1LjVWMTFIMjFWMTUuNUMyMSAxNi4zMjg0IDIwLjcwNjkgMTcuMDM1MyAyMC4xMjExIDE3LjYyMTFDMTkuNTM1MyAxOC4yMDY5IDE4LjgyODQgMTguNSAxOCAxOC41SDkuMzUwNTlMNS40Mzc1IDIxLjYzMDlDNC45NDY1MSAyMi4wMjM3IDQuNDE3MjkgMjIuMDgzOCAzLjg1MDU5IDIxLjgxMTVDMy4yODM4NiAyMS41MzkyIDMuMDAwMDggMjEuMDg4NyAzIDIwLjQ2VjZDMyA1LjE3MTU3IDMuMjkzMTIgNC40NjQ3IDMuODc4OTEgMy44Nzg5MUM0LjQ2NDcgMy4yOTMxMiA1LjE3MTU3IDMgNiAzSDE0VjVaTTIwIDVIMjIuNVY3SDIwVjkuNUgxOFY3SDE1LjVWNUgxOFYyLjVIMjBWNVoiIGZpbGw9IiMyMjIyMjIiLz4KPC9nPgo8L3N2Zz4K" alt="新对话"></div>
@@ -310,7 +311,7 @@ function createTimeline() {
   track('compact',channel('compact'));
   track('notice',channel('notice'));
   track('noticeContent',channel('content'));
-  track('hourglass',[[0,{opacity:1}],[DURATION,{opacity:1}]]);
+  track('hourglass',[[0,{opacity:0}],[TIMING.expanded,{opacity:0}],[TIMING.expanded,{opacity:1}],[DURATION,{opacity:1}]]);
   animations.forEach(animation => animation.playbackRate = rate);
   clock.onfinish = () => {
     if (view !== 'home') return;
@@ -339,6 +340,7 @@ function update(time) {
   else $('phase').textContent = {idle:'静止停留',expanding:'展开提醒',collapsing:'收回顶部 tab',pending:'待处理'}[phase];
   if (phase !== lastPhase) {
     $('screen').dataset.state = phase;
+    $('screen').dataset.tabStatus=time<TIMING.expanded?'initial':'pending';
     const isReminder = phase === 'reminder';
     const isCompact = phase === 'idle' || phase === 'pending';
     $('notice').inert = !isReminder;
@@ -451,6 +453,8 @@ function createGoTimeline() {
 }
 
 function createTabTransition() {
+  if(returningHome)$('screen').dataset.tabStatus='initial';
+  const plainTab=$('screen').dataset.tabStatus==='initial';
   const screen=$('screen').getBoundingClientRect(),zoom=screen.width/375;
   const rect=el=>{const r=el.getBoundingClientRect();return{x:(r.x-screen.x)/zoom,y:(r.y-screen.y)/zoom,w:r.width/zoom,h:r.height/zoom};};
   const source=rect($('compact')),target=rect($('goTabs'));
@@ -474,7 +478,8 @@ function createTabTransition() {
   goTrack('switchGo',[[0,pose(goStart),curve],[end,pose(go1)],[GO_DURATION,pose(go1)]]);
   goTrack('switchFastActive',[[0,{opacity:1},'ease'],[end,{opacity:0}],[GO_DURATION,{opacity:0}]]);
   goTrack('switchFastMuted',[[0,{opacity:0},'ease'],[end,{opacity:1}],[GO_DURATION,{opacity:1}]]);
-  ['switchGoMuted','switchPending'].forEach(id=>goTrack(id,[[0,{opacity:1},'ease'],[reducedMotion.matches?1:100,{opacity:0}],[GO_DURATION,{opacity:0}]]));
+  goTrack('switchGoMuted',[[0,{opacity:1},'ease'],[reducedMotion.matches?1:100,{opacity:0}],[GO_DURATION,{opacity:0}]]);
+  goTrack('switchPending',plainTab?[[0,{opacity:0}],[GO_DURATION,{opacity:0}]]:[[0,{opacity:1},'ease'],[reducedMotion.matches?1:100,{opacity:0}],[GO_DURATION,{opacity:0}]]);
   goTrack('switchGoActive',[[0,{opacity:0}],[reducedMotion.matches?0:40,{opacity:0},'ease'],[reducedMotion.matches?1:200,{opacity:1}],[GO_DURATION,{opacity:1}]]);
   // Exact handoff at identical final geometry; no double-rendered letters.
   goTrack('tabTransition',[[0,{opacity:1}],[end,{opacity:1}],[end,{opacity:0}],[GO_DURATION,{opacity:0}]]);
@@ -543,8 +548,10 @@ function enterGo(replay=false) {
     if(!replay)return;
     returnHome();
   }
+  const sourceTabStatus=$('screen').dataset.tabStatus;
   pause();seek(DURATION);
   view='go';$('screen').dataset.view='go';
+  $('screen').dataset.tabStatus=sourceTabStatus;
   ['goPage','goNavigation'].forEach(id=>{$(id).hidden=false;$(id).inert=false;});
   ['greeting','homeComposer'].forEach(id=>$(id).setAttribute('aria-hidden','true'));
   $('compact').inert=true;$('homeNavigation').inert=true;
