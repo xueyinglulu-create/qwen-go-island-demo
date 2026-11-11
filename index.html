@@ -24,6 +24,8 @@
 .compact button{border:0;padding:0;font:inherit}
 .compact .go-logo{background:transparent}
 .screen[data-tab-status="initial"] #goTab .state-icon{display:none}
+.screen[data-tab-status="initial"] .compact{left:105.5px;width:148px}
+.screen[data-tab-status="initial"] .compact .fast-logo,.screen[data-tab-status="initial"] .compact .go-logo{width:72px}
 .go-navigation[hidden],.go-page[hidden],.go-feedback[hidden],.clarification-options img[hidden]{display:none}
 .go-navigation{position:absolute;z-index:7;left:0;top:44px;width:375px;height:50px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:#fff;opacity:0}
 .go-selected-tabs{position:absolute;left:calc(50% + .22px);top:7px;transform:translateX(-50%);display:flex;padding:2px;width:148px;height:36px;border-radius:99px;background:#2222220f}
@@ -89,7 +91,7 @@
       </div>
       <div class="scrub"><input id="scrubber" type="range" min="0" max="5920" step="1" value="0" aria-label="动画进度"><div><span id="phase" role="status">静止停留</span><span id="time">0.00 / 5.92 s</span></div></div>
       <p class="hint">点击状态查看 · 点击千问 Go 或查看详情进入澄清</p>
-      <p class="hint"><a href="recording.html?v=7">观看完整录屏</a> · <a href="qwen-go-demo.mp4?v=7" download>下载 MP4</a></p>
+<p class="hint"><a href="recording.html?v=8">观看完整录屏</a> · <a href="qwen-go-demo.mp4?v=8" download>下载 MP4</a></p>
       <a class="design-link" href="https://www.figma.com/design/0UcbSziSoNivUpRw6dhbvC/?node-id=13071-150867" target="_blank" rel="noreferrer">查看 Figma 设计稿 <span aria-hidden="true">↗</span></a>
     </section>
     <section class="preview" aria-label="375 × 812 设计稿动画预览">
@@ -224,20 +226,22 @@ function smoothstep(a,b,value) {
   return t*t*(3-2*t);
 }
 
-function material(progress) {
+function material(progress,baseWidth=176) {
   const shape=progress;
   const radius=18+6*Math.sin(Math.PI*clamp01(shape));
-  return {clipPath:'inset('+4*(1-shape)+'px '+91.5*(1-shape)+'px '+98*(1-shape)+'px '+91.5*(1-shape)+'px round '+radius+'px)'};
+  const inset=(359-baseWidth)/2;
+  return {clipPath:'inset('+4*(1-shape)+'px '+inset*(1-shape)+'px '+98*(1-shape)+'px '+inset*(1-shape)+'px round '+radius+'px)'};
 }
 
 function islandVisuals(progress,exitTime=null,joining=clamp01(progress)) {
   const p=clamp01(progress);
   const exiting=exitTime!==null;
+  const baseWidth=exiting?176:148;
   const tone=Math.round(242+13*(exiting?smoothstep(0,.45,p):joining));
   const depth=exiting?p:.18*joining+.82*p;
   const contour=exiting?1-Math.pow(1-p,1.3):progress;
   const shape=reducedMotion.matches?Number(p>=.5):contour;
-  const shadowX=(176+183*shape)/359,shadowY=(36+102*shape)/138;
+  const shadowX=(baseWidth+(359-baseWidth)*shape)/359,shadowY=(36+102*shape)/138;
   const shadowRadius=18+6*Math.sin(Math.PI*clamp01(shape));
   // Resolve content already inhabiting the growing plate, rather than reveal
   // a nearly full-sized layout through a crop. Its scale matches plate height.
@@ -246,7 +250,7 @@ function islandVisuals(progress,exitTime=null,joining=clamp01(progress)) {
   const visibility=exiting?smoothstep(.50,.96,p)*(.85+.15*settled):smoothstep(.12,.48,p)*(.72+.28*clarity);
   const contentScale=exiting?.96+.04*clarity:(36+102*p)/138;
   return {
-    surface:{...material(shape),backgroundColor:'rgb('+tone+','+tone+','+tone+')'},
+    surface:{...material(shape,baseWidth),backgroundColor:'rgb('+tone+','+tone+','+tone+')'},
     // The shadow is a sibling of the clipped plate, so it cannot be cut off
     // or confused with the content-only blur. Match its contour exactly.
     shadow:{opacity:depth,transform:'translateY('+4*(1-shape)+'px) scale('+shadowX+','+shadowY+')',borderRadius:shadowRadius/shadowX+'px / '+shadowRadius/shadowY+'px'},
@@ -255,7 +259,7 @@ function islandVisuals(progress,exitTime=null,joining=clamp01(progress)) {
     // One boundary and one optical treatment for the whole foreground.
     // Keep the boundary in plate coordinates; scale only the shared inner
     // content, so text and buttons preserve their layout and the same anchor.
-    notice:{opacity:visibility,clipPath:material(clamp01(shape)).clipPath},
+    notice:{opacity:visibility,clipPath:material(clamp01(shape),baseWidth).clipPath},
     content:{transform:'scale('+(reducedMotion.matches?1:contentScale)+')',transformOrigin:exiting?'50% 22px':'50% 0px',filter:'blur('+(reducedMotion.matches?0:(exiting?3:5)*(1-clarity))+'px)'}
   };
 }
