@@ -91,7 +91,7 @@
       </div>
       <div class="scrub"><input id="scrubber" type="range" min="0" max="5920" step="1" value="0" aria-label="动画进度"><div><span id="phase" role="status">静止停留</span><span id="time">0.00 / 5.92 s</span></div></div>
       <p class="hint">点击状态查看 · 点击千问 Go 或查看详情进入澄清</p>
-<p class="hint"><a href="recording.html?v=8">观看完整录屏</a> · <a href="qwen-go-demo.mp4?v=8" download>下载 MP4</a></p>
+<p class="hint"><a href="recording.html?v=9">观看完整录屏</a> · <a href="qwen-go-demo.mp4?v=9" download>下载 MP4</a></p>
       <a class="design-link" href="https://www.figma.com/design/0UcbSziSoNivUpRw6dhbvC/?node-id=13071-150867" target="_blank" rel="noreferrer">查看 Figma 设计稿 <span aria-hidden="true">↗</span></a>
     </section>
     <section class="preview" aria-label="375 × 812 设计稿动画预览">
@@ -207,6 +207,7 @@ let cardDismissed = false;
 let dismissalAnimation;
 let returningHome = false;
 let returnPose = null;
+let returnTabBounds = null;
 
 const activeClock = () => view === 'go' ? goClock : clock;
 const activeAnimations = () => view === 'go' ? goAnimations : animations;
@@ -441,7 +442,7 @@ function createGoTimeline() {
     [80,{opacity:0,transform:below},easeOut],[GO_DURATION,{opacity:1,transform:rest}]]);
   ['goPage','goNavigation'].forEach(id=>goTrack(id,[[0,{opacity:0},'ease'],[220,{opacity:1}],[GO_DURATION,{opacity:1}]]));
   ['homeNavigation','greeting','homeComposer'].forEach(id=>goTrack(id,[[0,{opacity:1},'ease'],[180,{opacity:0}],[GO_DURATION,{opacity:0}]]));
-  ['compact','shadow'].forEach(id=>goTrack(id,[[0,{opacity:0}],[GO_DURATION,{opacity:0}]]));
+  ['compact','shadow','surface'].forEach(id=>goTrack(id,[[0,{opacity:0}],[GO_DURATION,{opacity:0}]]));
   const entering=reducedMotion.matches?'translateY(0px)':'translateY(10px)';
   const leaving=reducedMotion.matches?'translateY(0px)':'translateY(-10px)';
   goTrack('goConversation',[[0,{transform:entering},easeOut],[300,{transform:'translateY(0px)'}],[GO_DURATION,{transform:'translateY(0px)'}]]);
@@ -468,14 +469,18 @@ function createTabTransition() {
   const pending=rect($('hourglass'));
   $('switchPending').src=$('hourglass').src;
   const place=(id,r)=>Object.assign($(id).style,{left:`${r.x}px`,top:`${r.y}px`,width:`${r.w}px`,height:`${r.h}px`});
-  place('switchShell',source);place('switchSelection',sourceSelected);
+  // Keep the overlay's coordinate space when returning. Its current clip was
+  // measured in the entry box (which may be 176px), not the new 148px home tab.
+  const shellBase=returningHome?returnTabBounds.shell:source;
+  const selectionBase=returningHome?returnTabBounds.selection:sourceSelected;
+  place('switchShell',shellBase);place('switchSelection',selectionBase);
   Object.assign($('switchPending').style,{left:`${pending.x}px`,top:`${pending.y}px`});
   const end=reducedMotion.matches?1:TAB_DURATION;
   const curve='cubic-bezier(.32,.72,0,1)';
-  const shellClip=`inset(0px ${source.x+source.w-target.x-target.w}px 0px ${target.x-source.x}px round 18px)`;
-  goTrack('switchShell',[[0,{clipPath:'inset(0px 0px 0px 0px round 18px)'},curve],[end,{clipPath:shellClip}],[GO_DURATION,{clipPath:shellClip}]]);
-  const selectionEnd={transform:`translate3d(${targetSelected.x-sourceSelected.x}px,${targetSelected.y-sourceSelected.y}px,0px)`,clipPath:`inset(0px ${sourceSelected.w-targetSelected.w}px 0px 0px round 16px)`};
-  goTrack('switchSelection',[[0,{transform:'translate3d(0px,0px,0px)',clipPath:'inset(0px 0px 0px 0px round 16px)'},curve],[end,selectionEnd],[GO_DURATION,selectionEnd]]);
+  const shellPose=r=>({clipPath:`inset(0px ${shellBase.x+shellBase.w-r.x-r.w}px 0px ${r.x-shellBase.x}px round 18px)`});
+  const selectionPose=r=>({transform:`translate3d(${r.x-selectionBase.x}px,${r.y-selectionBase.y}px,0px)`,clipPath:`inset(0px ${selectionBase.w-r.w}px 0px 0px round 16px)`});
+  goTrack('switchShell',[[0,shellPose(source),curve],[end,shellPose(target)],[GO_DURATION,shellPose(target)]]);
+  goTrack('switchSelection',[[0,selectionPose(sourceSelected),curve],[end,selectionPose(targetSelected)],[GO_DURATION,selectionPose(targetSelected)]]);
   const pose=r=>({transform:`translate3d(${r.x}px,${r.y}px,0px)`});
   const goStart={x:go0.x+go0.w/2-27,y:go0.y+go0.h/2-10};
   goTrack('switchFast',[[0,pose(fast0),curve],[end,pose(fast1)],[GO_DURATION,pose(fast1)]]);
@@ -526,6 +531,8 @@ function returnHome(restart=false) {
 function returnHomeAnimated() {
   if(view!=='go'||returningHome)return;
   pause();
+  const box=id=>{const el=$(id);return{x:parseFloat(el.style.left),y:parseFloat(el.style.top),w:parseFloat(el.style.width),h:parseFloat(el.style.height)};};
+  returnTabBounds={shell:box('switchShell'),selection:box('switchSelection')};
   // Retarget from the visible frame, including a partially completed entry.
   returnPose=goAnimations.reduce((poses,animation)=>{
     const el=animation.effect.target,style=getComputedStyle(el);
